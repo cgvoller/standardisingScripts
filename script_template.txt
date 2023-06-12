@@ -1,0 +1,68 @@
+snippet header
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
+	##
+	## Purpose of script:
+	##
+	## Author: 
+	##
+	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
+	##
+	## QC'd by:
+	## QC date:
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Notes:
+	##   
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## 
+	## set working directory -------------------------------------------------------
+	message("Set working directory")
+
+	# setwd("~/")  
+	
+	## Options ---------------------------------------------------------------------
+	
+	# options(scipen = 6, digits = 4) # View outputs in non-scientific notation
+
+	## Load packages ---------------------------------------------------------------
+	message("Load packages")
+
+	## Set file paths --------------------------------------------------------------
+	message("Set file paths")
+
+	base.path <- ""
+	data.path <- ""
+	output.path <- ""
+	template.path <- ""
+
+
+	## Load data -------------------------------------------------------------------
+	message("Load data")
+	 
+	# data <- fread(file.path(data.path, ".csv")) # or read.csv, etc
+	# load(x,file.path(data.path,".RData"))
+	# load(file.path("C:/Users/isfar.RData"), isfar_env <- new.env())
+
+
+	## First Section ---------------------------------------------------------------
+	message("First Section")
+	attach_pop("")
+
+	## Second Section --------------------------------------------------------------
+	message("Second Section")
+
+
+	## Third Section ---------------------------------------------------------------
+	message("Third section")
+
+
+	## Output  ---------------------------------------------------------------------
+	message("Output")
+
+	# save(x,file.path(output.path,".RData"))
+	# write.csv(x,file.path(output.path,"x.csv")
