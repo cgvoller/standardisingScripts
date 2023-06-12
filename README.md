@@ -11,3 +11,9 @@ A snippet to help standardise scripts in R
 
 | **Note**: When copying and pasting the contents of the txt file into the snippet window, make sure you are pasting with the cursor to the left most point of the window. You will know you have copied the contents across correctly if the word snippet is in purple. |
 |---|
+
+![GitHub followers](https://img.shields.io/github/followers/cgvoller?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/cgvoller/standardisingScripts)
+![GitHub fork](https://img.shields.io/github/forks/cgvoller/standardisingScripts?style=flat-square)
+![GitHub issues](https://img.shields.io/bitbucket/issues/cgvoller/standardisingScripts)
+![GitHub size](https://img.shields.io/github/repo-size/cgvoller/standardisingScripts)
