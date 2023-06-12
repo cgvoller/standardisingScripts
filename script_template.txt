@@ -51,7 +51,6 @@ snippet header
 
 	## First Section ---------------------------------------------------------------
 	message("First Section")
-	attach_pop("")
 
 	## Second Section --------------------------------------------------------------
 	message("Second Section")
