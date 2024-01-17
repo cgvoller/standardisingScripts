@@ -35,7 +35,7 @@ snippet cctumaintemplate
 
 	## Load packages ---------------------------------------------------------------
 	message("Load packages")
-        .libPaths("library")
+	.libPaths("library")
 	library(cctu)
 	cctu::cctu_initialise()
 	cctu::rm_output(reports = FALSE)
@@ -47,7 +47,7 @@ snippet cctumaintemplate
 	data.path <- ""
 	output.path <- ""
 	template.path <- ""
-        # cctu::run_batch("main.R")
+	# cctu::run_batch("main.R")
 
 	## Source config ---------------------------------------------------------------
 	message("Source config")
@@ -102,6 +102,6 @@ snippet cctumaintemplate
 	meta_table = get_meta_table() %>%
 	filter(number %in% c(tabs, figs,txts))
 	)
-        Sys.info()
-        sessionInfo()
-        date()
+	Sys.info()
+	sessionInfo()
+	date()
