@@ -1,0 +1,68 @@
+snippet cctuconfigtemplate
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
+	##
+	## Purpose of script:
+	##
+	## Author: 
+	##
+	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
+	##
+	## QC'd by:
+	## QC date:
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Notes:
+	##   
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## 
+	## Preliminary -----------------------------------------------------------------
+	message("Preliminary")
+
+	# Remove objects from workspace
+	rm(list = ls())
+	
+	## Options ---------------------------------------------------------------------
+	
+	options(verbose = TRUE, stringsAsFactors = FALSE)
+
+	## Load packages ---------------------------------------------------------------
+	message("Load packages")
+	# List of packages to be used
+	packages <-
+	  c(
+			"magrittr",
+			"dplyr",
+			"tidyr",
+			"ggplot2",
+			"dplyr",
+			"lubridate",
+			"RODBC",
+			"data.table",
+			"stringr",
+			"grid",
+			"gridExtra"
+			)
+
+
+	# Install cctu package (needs devtools)
+	# devtools::install_github("shug0131/cctu")
+	# Install packages which aren't installed in "packages"
+	# if (length(packages[!(packages %in% installed.packages()[, "Package"])]))
+	#   install.packages(packages[!(packages %in% installed.packages()[, "Package"])])
+	# Load packages
+	lapply(packages, library, character.only = TRUE)
+
+	# source functions from sub folder functions
+	file.sources = list.files(
+	c("progs/functions"),
+	pattern = "\\.R$",
+	full.names = TRUE,
+	ignore.case = T
+	)
+
+	sapply(file.sources,source)
