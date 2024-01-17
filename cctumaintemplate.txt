@@ -1,0 +1,107 @@
+snippet cctumaintemplate
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
+	##
+	## Purpose of script:
+	##
+	## Author: 
+	##
+	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
+	##
+	## QC'd by:
+	## QC date:
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Notes:
+	##   
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## 
+	## Preliminary -----------------------------------------------------------------
+	message("Preliminary")
+
+	# Remove objects from workspace
+	rm(list = ls())
+	
+	## Options ---------------------------------------------------------------------
+	
+	# options(scipen = 6, digits = 4) # View outputs in non-scientific notation
+	# Blinded TRUE/FALSE argument
+	# set to FALSE: generate real report, TRUE: Sending to internal tmg
+	Blinded <- T
+
+	## Load packages ---------------------------------------------------------------
+	message("Load packages")
+        .libPaths("library")
+	library(cctu)
+	cctu::cctu_initialise()
+	cctu::rm_output(reports = FALSE)
+
+	## Set file paths --------------------------------------------------------------
+	message("Set file paths")
+
+	base.path <- ""
+	data.path <- ""
+	output.path <- ""
+	template.path <- ""
+        # cctu::run_batch("main.R")
+
+	## Source config ---------------------------------------------------------------
+	message("Source config")
+
+	# Set up libraries, R options for outputs, read in in-house functions
+	source("progs/config.R")
+
+	## Load & Clean data -----------------------------------------------------------
+	message("Load and clean data")
+
+	# import and tidy data
+	source("progs/data_import.R")
+
+	## Analysis --------------------------------------------------------------------
+	message("Run Analysis")
+
+	# Run analysis which consists of
+	#  - 
+	#  - 
+	#  - 
+	#  - 
+	#  -
+	#  - 
+	source("progs/analysis.R")
+
+	# Tables and figures -----------------------------------------------------------
+
+
+	tabs <- dir("Output/Core")
+	tabs <- gsub("(\\d|\\.)\\.xml", "\\1", tabs)
+	tabs <- gsub("table_", "", tabs)
+
+
+	figs <- dir("Output/Figures")
+	figs <- gsub("(\\d|\\.)\\.png", "\\1", figs)
+	figs <- gsub("fig_", "", figs)
+
+	figs <- dir("Output/Figures")
+	figs <- gsub("(\\d|\\.)\\.png", "\\1", figs)
+	figs <- gsub("fig_", "", figs)
+
+	txts <- dir("Output/Core")
+	txts <- gsub("(\\d|\\.)\\.xml", "\\1",txts)
+	txts <- gsub("text_", "",  txts)
+
+	## Create Report  --------------------------------------------------------------
+	message("Create Report")
+
+	cctu::create_word_xml(
+	report_title = "",
+	author = "",
+	meta_table = get_meta_table() %>%
+	filter(number %in% c(tabs, figs,txts))
+	)
+        Sys.info()
+        sessionInfo()
+        date()
