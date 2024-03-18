@@ -1,4 +1,4 @@
-snippet cctuconfigtemplate
+snippet configtemplate
 	## ─────────────────────────────────────────────────────────────────────────────
 	##
 	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
@@ -48,9 +48,6 @@ snippet cctuconfigtemplate
 			"gridExtra"
 			)
 
-
-	# Install cctu package (needs devtools)
-	# devtools::install_github("shug0131/cctu")
 	# Install packages which aren't installed in "packages"
 	# if (length(packages[!(packages %in% installed.packages()[, "Package"])]))
 	#   install.packages(packages[!(packages %in% installed.packages()[, "Package"])])
