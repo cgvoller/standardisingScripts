@@ -1,0 +1,2 @@
+snippet pastefile
+	"`r gsub("\\\\", "/", readClipboard())`"
