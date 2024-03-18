@@ -1,4 +1,4 @@
-snippet cctumaintemplate
+snippet maintemplate
 	## ─────────────────────────────────────────────────────────────────────────────
 	##
 	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
