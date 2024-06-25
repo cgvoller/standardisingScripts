@@ -40,7 +40,11 @@ snippet maintemplate
 	# Blinded TRUE/FALSE argument
 	# set to FALSE: generate real report, TRUE: Sending to internal tmg
 	Blinded <- T
-
+	if(BLINDED) {
+  	BLINDED_TEXT <- "Blinded"
+	} else {
+  	BLINDED_TEXT <- "Unblinded"
+	}
 	## Load packages ---------------------------------------------------------------
 	message("Load packages")
 	.libPaths("library")
