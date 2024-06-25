@@ -33,7 +33,7 @@ snippet maintemplate
 	# To be used in report title
 	DATE_TEXT <- "May 2024"
 	# Report title / version number
-	REPORT <- paste(Trial,Statistical Report v0.1")
+	REPORT <- paste(Trial,"Statistical Report v0.1")
 	## Options ---------------------------------------------------------------------
 	
 	# options(scipen = 6, digits = 4) # View outputs in non-scientific notation
@@ -132,15 +132,17 @@ snippet maintemplate
 	message("Create Report")
 
 	cctu::create_word_xml(
-	report_title = paste(REPORT, DATE_TEXT, sep = " "),
-	author = "",
-	popn_labels = popn_labels,
-	meta_table = get_meta_table() %>%
-	filter(number %in% c(tabs, figs,txts)),
-	filename = file.path("Output","Reports", 
-	paste(Trial, BLINDED_TEXT, "Report v", DATE_TEXT, ".doc")
-	)
-	)
+  		report_title = paste(REPORT, DATE_TEXT, sep = " "),
+  		author = "",
+  		popn_labels = popn_labels,
+  		meta_table = get_meta_table() %>%
+    			filter(number %in% c(tabs, figs, txts)),
+  		filename = file.path(
+			"Output",
+			"Reports",
+			paste(Trial, BLINDED_TEXT, "Report v", DATE_TEXT, ".doc")
+  )
+)
 	Sys.info()
 	sessionInfo()
 	date()
