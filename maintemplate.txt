@@ -25,7 +25,15 @@ snippet maintemplate
 
 	# Remove objects from workspace
 	rm(list = ls())
-	
+	# Uncomment for batch run
+	# cctu::run_batch("main.R")
+
+	# Trial Name
+	Trial <- ""
+	# To be used in report title
+	DATE_TEXT <- "May 2024"
+	# Report title / version number
+	REPORT <- paste(Trial,Statistical Report v0.1")
 	## Options ---------------------------------------------------------------------
 	
 	# options(scipen = 6, digits = 4) # View outputs in non-scientific notation
@@ -42,19 +50,15 @@ snippet maintemplate
 
 	## Set file paths --------------------------------------------------------------
 	message("Set file paths")
-
-	base.path <- ""
+	
 	data.path <- ""
-	output.path <- ""
-	template.path <- ""
-	# cctu::run_batch("main.R")
-
+	
 	## Source config ---------------------------------------------------------------
 	message("Source config")
-
+	
 	# Set up libraries, R options for outputs, read in in-house functions
 	source("progs/config.R")
-
+	
 	## Load & Clean data -----------------------------------------------------------
 	message("Load and clean data")
 
@@ -71,36 +75,71 @@ snippet maintemplate
 	#  - 
 	#  -
 	#  - 
-	source("progs/analysis.R")
+	### Baseline -------------------------------------------------------------------
+	message("Run Baseline scripts")
+	
+	# Create demographics
+	source("progs/analysis/baseline/demographics.R")
+	
+	### Follow-up ------------------------------------------------------------------
+	message("Run follow-up scripts")
+	
+	# Get visit frequencies and check compliance
+	source("progs/analysis/followup/visit_freq.R")
+	
+	### Safety ---------------------------------------------------------------------
+	message("Run safety scripts")
+	
+	# Summarise adverse events
+	source("progs/analysis/safety/adverse_events.R")
+	
+	# Summarise withdrawals, deaths & pregnancies
+	source("progs/analysis/safety/withdrawal_deaths_preg.R")
+	
+	## Define populations ---------------------------------------------------------- 
+	popn <- population[, c("subjid", "safety", "full", "all")]
+	popn <- as.data.frame(popn)
+	pop_size <- sapply( popn[,names(popn)!="subjid", drop=FALSE ], sum)
+	pop_name <- na.omit(unique(get_meta_table()$population))
+	pop_name <- pop_name[pop_name!=""]
+	index <- match(pop_name, names(pop_size))
+	popn_labels <- paste0(propercase(pop_name), " (N = ", pop_size[index],")") %>% 
+	  gsub("_","-",.)
+
 
 	# Tables and figures -----------------------------------------------------------
 
-
+	# Tables
 	tabs <- dir("Output/Core")
-	tabs <- gsub("(\\d|\\.)\\.xml", "\\1", tabs)
+	tabs <- tabs[grepl("^table_", tabs)]
 	tabs <- gsub("table_", "", tabs)
+	tabs <- gsub(".xml$", "", tabs)
 
-
-	figs <- dir("Output/Figures")
-	figs <- gsub("(\\d|\\.)\\.png", "\\1", figs)
+	# Figures
+	figs <- dir("Output/Core")
+	figs <- figs[grepl("^fig_", figs)]
 	figs <- gsub("fig_", "", figs)
+	figs <- gsub(".xml$", "", figs)
 
-	figs <- dir("Output/Figures")
-	figs <- gsub("(\\d|\\.)\\.png", "\\1", figs)
-	figs <- gsub("fig_", "", figs)
-
+	# write texts
 	txts <- dir("Output/Core")
-	txts <- gsub("(\\d|\\.)\\.xml", "\\1",txts)
-	txts <- gsub("text_", "",  txts)
+	txts <- txts[grepl("text_", txts)]
+	txts <- gsub("text_", "", txts)
+	txts <- gsub(".xml$", "", txts)
+
 
 	## Create Report  --------------------------------------------------------------
 	message("Create Report")
 
 	cctu::create_word_xml(
-	report_title = "",
+	report_title = paste(REPORT, DATE_TEXT, sep = " "),
 	author = "",
+	popn_labels = popn_labels,
 	meta_table = get_meta_table() %>%
-	filter(number %in% c(tabs, figs,txts))
+	filter(number %in% c(tabs, figs,txts)),
+	filename = file.path("Output","Reports", 
+	paste(Trial, BLINDED_TEXT, "Report v", DATE_TEXT, ".doc")
+	)
 	)
 	Sys.info()
 	sessionInfo()
