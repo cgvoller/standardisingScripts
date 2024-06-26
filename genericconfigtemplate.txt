@@ -1,4 +1,4 @@
-snippet cctuconfigtemplate
+snippet configtemplate
 	## ─────────────────────────────────────────────────────────────────────────────
 	##
 	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
