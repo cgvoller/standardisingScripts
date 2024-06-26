@@ -1,6 +1,13 @@
 # standardisingScripts
 A snippet to help standardise scripts in R
 
+# Current Templates
+
+- cctumaintemplate.txt : Main file template to produce reports using CCTU package
+- genericconfigtemplate.txt : configuration template for loading and installing packages as well as functions and themes
+- pastefile.txt : For copying file paths correctly in R. It will paste forward slashes
+- script_template.txt : A generic, all-purpose template
+
 # How to use snippets
 
 - Tools -> Global Options -> Code -> Editing -> Edit Snippets
