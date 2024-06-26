@@ -8,6 +8,7 @@ snippet header
 	## Author: 
 	##
 	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
+	## R Version: `r paste(R.Version()$version.string)`
 	##
 	## QC'd by:
 	## QC date:
