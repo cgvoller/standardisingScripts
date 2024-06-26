@@ -145,8 +145,8 @@ snippet maintemplate
 			"Output",
 			"Reports",
 			paste(Trial, BLINDED_TEXT, "Report v", DATE_TEXT, ".doc")
-  )
-)
+			)	
+		)
 	Sys.info()
 	sessionInfo()
 	date()
