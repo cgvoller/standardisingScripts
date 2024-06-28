@@ -1,0 +1,2 @@
+snippet dynamicsection
+    `r paste0(rep.int("-", 88 - rstudioapi::primary_selection(rstudioapi::getActiveDocumentContext())$range$start[2]), collapse = "")`
