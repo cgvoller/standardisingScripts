@@ -8,6 +8,7 @@ A snippet to help standardise scripts in R
 - pastefile.txt : For copying file paths correctly in R. It will paste forward slashes
 - script_template.txt : A generic, all-purpose template
 - templatecopyright.txt: Template with details of author, R-version, licensing date, time, etc
+- templatefunct.txt: A template to store in-house functions to be sourced for a project
 
 # How to use snippets
 
