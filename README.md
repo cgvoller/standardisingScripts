@@ -6,10 +6,16 @@ A series of template snippets to help standardise scripts and miscellaneous snip
 - templateheader.txt: Minimalist, generic template
 - cctumaintemplate.txt : Main file template to produce reports using CCTU package
 - genericconfigtemplate.txt : configuration template for loading and installing packages as well as functions and themes
-- pastefile.txt : For copying file paths correctly in R. It will paste forward slashes
 - script_template.txt : A generic, all-purpose template
 - templatecopyright.txt: Template with details of author, R-version, licensing date, time, etc
 - templatefunct.txt: A template to store in-house functions to be sourced for a project
+
+# Misc Snippets
+- section.txt: Adds a named section
+- dynamic section: Dynamically will fit dashes to the width of the page. Type the name of your section (i.e. # Data import) followed by dynamicheader and press SHIFT+TAB
+- pastefile.txt : For copying file paths correctly in R. It will paste forward slashes
+
+
 
 # How to use snippets
 
