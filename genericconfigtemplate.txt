@@ -1,4 +1,4 @@
-snippet configtemplate
+snippet templateconfig
 	## ─────────────────────────────────────────────────────────────────────────────
 	##
 	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
