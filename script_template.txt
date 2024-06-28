@@ -1,4 +1,4 @@
-snippet header
+snippet templategeneric
 	## ─────────────────────────────────────────────────────────────────────────────
 	##
 	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
