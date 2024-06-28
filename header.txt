@@ -8,7 +8,7 @@ snippet templateheader
 	## Author: `r paste(Sys.info()[["user"]])`
 	##
 	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
-	## R Version: `r paste(R.Version()$version.string)`
+	## R Version: `r paste(R.version[["version.string"]])`
 	##
 	## QC'd by:
 	## QC date:
