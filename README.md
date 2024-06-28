@@ -1,5 +1,5 @@
 # standardisingScripts
-A snippet to help standardise scripts in R
+A series of template snippets to help standardise scripts and miscellaneous snippets I find useful.
 
 # Current Templates
 
