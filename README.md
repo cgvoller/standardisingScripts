@@ -7,7 +7,7 @@ A snippet to help standardise scripts in R
 - genericconfigtemplate.txt : configuration template for loading and installing packages as well as functions and themes
 - pastefile.txt : For copying file paths correctly in R. It will paste forward slashes
 - script_template.txt : A generic, all-purpose template
-- templatecopyright.txt: Template with details of author, R-version, date, time, etc
+- templatecopyright.txt: Template with details of author, R-version, licensing date, time, etc
 
 # How to use snippets
 
