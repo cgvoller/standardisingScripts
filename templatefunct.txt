@@ -1,0 +1,138 @@
+snippet templatefunct
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Project: `r paste(gsub(".*STUDY FOLDER/","",getwd()))`
+	##
+	## Purpose of script: In-house functions to be sourced
+	##
+	## Author: `r paste(Sys.info()[["user"]])`
+	##
+	## Date Created: `r paste(format(Sys.time(), "%d-%m-%Y"))`
+	## R Version: `r paste(R.Version()$version.string)`
+	##
+	## QC'd by:
+	## QC date:
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	## Notes:
+	##
+	##
+	## ─────────────────────────────────────────────────────────────────────────────
+	##
+	##
+	## table_column_names-----------------------------------------------------------
+	
+	table_column_names <- function(x, y) {
+	  x <- data.frame(x)
+	  col.from <- colnames(x)[which(colnames(x) %in% y$rx)]
+	  x %<>%
+	    rename_at(col.from, \(x) paste0(x, sep = "\n", " n=", table(y$rx)))
+	  x
+	}
+	
+	
+	# Is the report blinded? -------------------------------------------------------
+	
+	# Make treatment columns blank if the report is supposed to be blinded
+	IsBlindedTab <- function(Blinded, x, data) {
+	  if (Blinded) {
+	    for (k in 1:length(x)) {
+	      x[[k]] <- sapply(colnames(x[[k]]), \(c)
+	                       if (c %in% data[, "rx"]) {
+	                        x[[k]][, c] <-
+	                           stringi::stri_replace_all_fixed(x[[k]][, c],
+	                                                           pattern = x[[k]][, c],
+	                                                           replacement = "")
+	                       }
+	                       else{
+	                         x[[k]][, c]
+	                       })
+	    }
+	  }
+	  x
+	}
+	# Add n = to col names for treatments ------------------------------------------
+	
+	table_column_names <- function(x, y) {
+	  x <- data.frame(x, check.names = F)
+	  col.from <- colnames(x)[which(colnames(x) %in% y$rx)]
+	  x %<>%
+	    rename_at(col.from, \(x) paste0(x, sep = "\n", " n=", table(y$rx)))
+	  x
+	}
+	# Add percentages to figures in tables -----------------------------------------
+	number_add_percentage <- function(z, y) {
+	  #z <- data.frame(z)
+	  col.from <- colnames(z)[which(colnames(z) %in% y$rx)]
+	  z %<>%  mutate(across(col.from, ~ paste0(
+	   .x,
+	    "/",
+	    table(y$rx)[cur_column()],
+	    " (",
+	    round((.x / as.numeric(table(
+	      y$rx
+	    )[cur_column()])) * 100),
+	    "%)"
+	  )))
+	  z$Total <-
+	    paste0(z$Total,
+	           "/",
+	           sum(table(y$rx)),
+	           " (",
+	           round((z$Total / (as.numeric(
+	             sum(table(y$rx))
+	           ))) * 100),
+	           "%)")
+	  return(z)
+	}
+	
+	# Create summaries for adverse events ------------------------------------------
+	
+	sumdat <- function(vars, data) {
+	  lapply(
+	    vars,
+	    \(x)
+	    data %>% select(subjid,
+	                    rx,
+	                    contains(c(x))) %>%
+	      pivot_longer(-c(subjid, rx)) %>%
+	      na.omit() %>%
+	      group_by(subjid, rx) %>%
+	      summarise(var = any(value == "Yes")) %>%
+	      group_by(rx) %>%
+	      summarise(!!x := sum(var))
+	  )
+	}
+	
+	## Elapsed Months --------------------------------------------------------------	
+	
+	elapsed_months <- function(start_date, end_date, method = "round") {
+	  if (method == "max") {
+	    elapsed_months <-
+	      12 * (lubridate::year(end_date) - lubridate::year(start_date)) + (lubridate::month(end_date) - lubridate::month(start_date)) + 1
+	  } else if (method == "round") {
+	    jour_ecoules <- end_date - start_date
+	    jour_ecoules <- lubridate::days(jour_ecoules)
+	    elapsed_months <- jour_ecoules$day / 30
+	    elapsed_months <- round(elapsed_months)
+	    
+	  } else if (method == "min") {
+	    elapsed_months <- lubridate::interval(start_date, end_date) %>%
+	      lubridate::as.period() %>%
+	      .@month
+	    
+	  }
+	  
+	  return(elapsed_months)
+	}
+	
+	## Convert Booleans ------------------------------------------------------------
+	boolean_convert <- function(x, values = c("True", "False")) {
+	  x_non_missing <- x[!is.na(x) & x != ""]
+	  if (!all(unique(x_non_missing) %in% values)) {
+	    x
+	  } else{
+	    1 * (x == values[1])
+	  }
+	}
